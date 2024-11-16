@@ -171,55 +171,58 @@
             "meme4.jpg"
         ];
 
-        // Function to show memes
-        function displayMeme() {
-            const memeContainer = document.getElementById("memeContainer");
-            const memeImg = document.createElement("img");
-            const isLeft = Math.random() > 0.5;
+    // Function to show memes
+    function displayMeme() {
+        const memeContainer = document.getElementById("memeContainer");
+        const memeImg = document.createElement("img");
+        const isLeft = Math.random() > 0.5;
 
-            memeImg.src = memes[Math.floor(Math.random() * memes.length)];
-            memeImg.className = `meme ${isLeft ? "left" : "right"}`;
-            memeImg.style.top = `${Math.random() * 60 + 20}%`;
+        memeImg.src = memes[Math.floor(Math.random() * memes.length)];
+        memeImg.className = `meme ${isLeft ? "left" : "right"}`;
+        memeImg.style.top = `${Math.random() * 60 + 20}%`; // Random vertical position
 
-            memeContainer.appendChild(memeImg);
+        memeContainer.appendChild(memeImg);
 
-            // Remove meme after 2 seconds
-            setTimeout(() => {
-                memeImg.remove();
-            }, 2000);
+        // Remove meme after 5 seconds
+        setTimeout(() => {
+            memeImg.remove();
+        }, 5000);
+    }
+
+    // Automatically display memes every 5 seconds
+    setInterval(displayMeme, 5000);
+
+    // Function to check if the guest is invited
+    function checkInvitation() {
+        const guestNameInput = document.getElementById("guestName");
+        const guestName = guestNameInput.value.trim().toUpperCase();
+        const messageDiv = document.getElementById("message");
+        const eventDetailsDiv = document.getElementById("eventDetails");
+
+        console.log("Entered Name:", guestName);
+
+        messageDiv.innerHTML = "";
+        eventDetailsDiv.style.display = "none"; // Hide event details by default
+
+        if (invitedGuests.includes(guestName)) {
+            console.log("Guest is invited:", guestName);
+            messageDiv.innerHTML = `
+                <p>Hello, ${guestName}. You're invited! 🎉</p>
+                <p>Venue: ${eventDetails.venue}</p>
+                <p>Time: ${eventDetails.time}</p>
+            `;
+            eventDetailsDiv.style.display = "block"; // Show event details
+            displayMeme(); // Show a meme when guest is invited
+        } else {
+            console.log("Guest is NOT invited:", guestName);
+            messageDiv.innerHTML = `<p>Sorry, ${guestName}. You are not on the invitation list.</p>`;
         }
 
-        // Function to check if the guest is invited
-        function checkInvitation() {
-            const guestNameInput = document.getElementById("guestName");
-            const guestName = guestNameInput.value.trim().toUpperCase();
-            const messageDiv = document.getElementById("message");
-            const eventDetailsDiv = document.getElementById("eventDetails");
+        guestNameInput.value = ""; // Clear input field
+    }
 
-            console.log("Entered Name:", guestName);
-
-            messageDiv.innerHTML = "";
-            eventDetailsDiv.style.display = "none"; // Hide event details by default
-
-            if (invitedGuests.includes(guestName)) {
-                console.log("Guest is invited:", guestName);
-                messageDiv.innerHTML = `
-                    <p>Hello, ${guestName}. You're invited! 🎉</p>
-                    <p>Venue: ${eventDetails.venue}</p>
-                    <p>Time: ${eventDetails.time}</p>
-                `;
-                eventDetailsDiv.style.display = "block"; // Show event details
-                displayMeme(); // Show meme when guest is invited
-            } else {
-                console.log("Guest is NOT invited:", guestName);
-                messageDiv.innerHTML = `<p>Sorry, ${guestName}. You are not on the invitation list.</p>`;
-            }
-
-            guestNameInput.value = ""; // Clear input field
-        }
-
-        // Event listener for button click
-        document.getElementById("checkButton").addEventListener("click", checkInvitation);
+    // Event listener for button click
+    document.getElementById("checkButton").addEventListener("click", checkInvitation);
     </script>
 </body>
 
