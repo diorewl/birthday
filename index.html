@@ -95,6 +95,8 @@
         <div id="message"></div>
         <div id="eventDetails" style="display: none; margin-top: 20px;">
             <h2>Event Details</h2>
+            <p>Venue: G and A Private Resort</p>
+            <p>Time: 3:00 PM | December 21, 2024</p>
             <p>Venue Features:</p>
             <ul>
                 <li>Swimming Pool</li>
@@ -102,12 +104,52 @@
                 <li>Garden Area</li>
                 <li>Function Hall</li>
             </ul>
-            <a href="https://maps.app.goo.gl/4Wiux2XxZPqELWMQA" target="_blank">
+            <a href="https://www.google.com/maps/place/G+and+A+Private+Resort" target="_blank">
                 <button>View Location on Google Maps</button>
             </a>
-
+            <p>Pictures of the Venue:</p>
+            <img src="venue1.jpg" alt="Venue Picture 1" style="width: 100%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="venue2.jpg" alt="Venue Picture 2" style="width: 100%; border-radius: 10px;">
         </div>
+        <div id="memeContainer" class="meme-container"></div>
     </div>
+
+    <style>
+        /* Styling for meme container */
+        .meme-container {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .meme {
+            position: absolute;
+            animation: fadeOut 2s forwards;
+        }
+
+        /* Keyframe animation for fading out */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        /* Left and right placement for memes */
+        .left {
+            left: 10px;
+        }
+
+        .right {
+            right: 10px;
+        }
+    </style>
 
     <script>
         // List of invited guests
@@ -120,6 +162,32 @@
             mapLink: "https://www.google.com/maps/place/G+and+A+Private+Resort",
             features: ["Swimming Pool", "Billiards Table", "Garden Area", "Function Hall"]
         };
+
+        // Meme images
+        const memes = [
+            "meme1.jpg",
+            "meme2.jpg",
+            "meme3.jpg",
+            "meme4.jpg"
+        ];
+
+        // Function to show memes
+        function displayMeme() {
+            const memeContainer = document.getElementById("memeContainer");
+            const memeImg = document.createElement("img");
+            const isLeft = Math.random() > 0.5;
+
+            memeImg.src = memes[Math.floor(Math.random() * memes.length)];
+            memeImg.className = `meme ${isLeft ? "left" : "right"}`;
+            memeImg.style.top = `${Math.random() * 60 + 20}%`;
+
+            memeContainer.appendChild(memeImg);
+
+            // Remove meme after 2 seconds
+            setTimeout(() => {
+                memeImg.remove();
+            }, 2000);
+        }
 
         // Function to check if the guest is invited
         function checkInvitation() {
@@ -141,6 +209,7 @@
                     <p>Time: ${eventDetails.time}</p>
                 `;
                 eventDetailsDiv.style.display = "block"; // Show event details
+                displayMeme(); // Show meme when guest is invited
             } else {
                 console.log("Guest is NOT invited:", guestName);
                 messageDiv.innerHTML = `<p>Sorry, ${guestName}. You are not on the invitation list.</p>`;
@@ -153,5 +222,6 @@
         document.getElementById("checkButton").addEventListener("click", checkInvitation);
     </script>
 </body>
+
 
 </html>
