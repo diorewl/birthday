@@ -93,19 +93,36 @@
         <input type="text" id="guestName" placeholder="FIRST & LAST NAME IN UPPERCASE">
         <button id="checkButton">Check Invitation</button>
         <div id="message"></div>
+        <div id="eventDetails" style="display: none; margin-top: 20px;">
+            <h2>Event Details</h2>
+            <p>Venue: G and A Private Resort</p>
+            <p>Time: 3:00 PM | December 21, 2024</p>
+            <p>Venue Features:</p>
+            <ul>
+                <li>Swimming Pool</li>
+                <li>Billiards Table</li>
+                <li>Garden Area</li>
+                <li>Function Hall</li>
+            </ul>
+            <a href="https://www.google.com/maps/place/G+and+A+Private+Resort" target="_blank">
+                <button>View Location on Google Maps</button>
+            </a>
+            <p>Pictures of the Venue:</p>
+            <img src="venue1.jpg" alt="Venue Picture 1" style="width: 100%; border-radius: 10px; margin-bottom: 10px;">
+            <img src="venue2.jpg" alt="Venue Picture 2" style="width: 100%; border-radius: 10px;">
+        </div>
     </div>
 
     <script>
-        // Simple console log to verify JavaScript is working
-        console.log("JavaScript is working");
-
         // List of invited guests
         const invitedGuests = ["JIREH DIZON", "MELANIE MANALO", "MIA", "PAUL", "ELLE", "IANNA", "JAMIE", "SORREL", "KYLA CORDERO", "TERELLE SARMIENTO", "JHAY GALANG", "VINCE CABRERA", "IAH BUENACOSA", "GABRIEL OCAMPO", "CHESTER CUETO", "PAU CUETO", "EXEQUIEL LAPENA", "TENSHI NUNAG", "JANARTH MANGULABNAN", "KRISTELLE MENDOZA", "JAYMEE DE GUZMAN", "LANZ ARCILLA", "KEITH QUERIJERO", "LIAN ARCILLA", "KARYLLE GLOMAR", "RAVEN MANGULABNAN", "CHRISHA PINEDA", "CARL LOZANO", "JENNY CABATINGAN", "JTAN DAVID", "MICHA MALLARI", "CHRISTLE GALANG", "KEANNA MERCADO", "RALF MANGULABNAN", "ALEXANDRA LACSON", "JUSTINE DE GUZMAN", "BIEL MAGTOTO", "YARA DE GUZMAN", "JADEL ROBILLUS", "HENRY EGOS"];
 
         // Event details
         const eventDetails = {
             venue: "G and A Private Resort",
-            time: "3:00 PM | December 21, 2024"
+            time: "3:00 PM | December 21, 2024",
+            mapLink: "https://www.google.com/maps/place/G+and+A+Private+Resort",
+            features: ["Swimming Pool", "Billiards Table", "Garden Area", "Function Hall"]
         };
 
         // Function to check if the guest is invited
@@ -113,20 +130,23 @@
             const guestNameInput = document.getElementById("guestName");
             const guestName = guestNameInput.value.trim().toUpperCase();
             const messageDiv = document.getElementById("message");
+            const eventDetailsDiv = document.getElementById("eventDetails");
 
-            console.log("Entered Name:", guestName); // Log the name entered by the user
+            console.log("Entered Name:", guestName);
 
-            messageDiv.innerHTML = ""; // Clear previous message
+            messageDiv.innerHTML = "";
+            eventDetailsDiv.style.display = "none"; // Hide event details by default
 
             if (invitedGuests.includes(guestName)) {
-                console.log("Guest is invited:", guestName); // Log if guest is found
+                console.log("Guest is invited:", guestName);
                 messageDiv.innerHTML = `
                     <p>Hello, ${guestName}. Espesyal ka sa akin, kaya iniimbitahan kitang mag-celebrate ng advance birthday ko! 🎉</p>
                     <p>Venue: ${eventDetails.venue}</p>
                     <p>Time: ${eventDetails.time}</p>
                 `;
+                eventDetailsDiv.style.display = "block"; // Show event details
             } else {
-                console.log("Guest is NOT invited:", guestName); // Log if guest is not found
+                console.log("Guest is NOT invited:", guestName);
                 messageDiv.innerHTML = `<p>Sorry, ${guestName}. You are not on the invitation list.</p>`;
             }
 
@@ -137,4 +157,5 @@
         document.getElementById("checkButton").addEventListener("click", checkInvitation);
     </script>
 </body>
+
 </html>
